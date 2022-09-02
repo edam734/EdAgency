@@ -10,6 +10,9 @@ public class EdAgencyUtils {
 	private final static SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
 	 
 	public static Date parseDate(String date) {
+		if (date == null || date.isEmpty()) {
+			return null;
+		}
 	    try {
 	        return new Date(DATE_FORMAT.parse(date).getTime());
 	    } catch (Exception e) {

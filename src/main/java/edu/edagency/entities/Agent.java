@@ -8,8 +8,8 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-
-import com.sun.istack.NotNull;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Entity
 public class Agent {
@@ -19,9 +19,11 @@ public class Agent {
 	private int id;
 
 	@NotNull
+	@Size(min = 3, max = 25)
 	private String name;
 
 	@NotNull
+	@Size(min = 3, max = 254)
 	private String email;
 
 	@NotNull
@@ -33,12 +35,12 @@ public class Agent {
 	@Enumerated(EnumType.STRING)
 	private EyeColor eyes;
 
-	private float height;
+	private Float height;
 
 	@Enumerated(EnumType.STRING)
 	private ShirtSize shirt;
 
-	private int shoes;
+	private Integer shoes;
 
 	private String instagram;
 
@@ -115,14 +117,14 @@ public class Agent {
 	/**
 	 * @return the height
 	 */
-	public float getHeight() {
+	public Float getHeight() {
 		return height;
 	}
 
 	/**
 	 * @param height the height to set
 	 */
-	public void setHeight(float height) {
+	public void setHeight(Float height) {
 		this.height = height;
 	}
 
@@ -143,14 +145,14 @@ public class Agent {
 	/**
 	 * @return the shoes
 	 */
-	public int getShoes() {
+	public Integer getShoes() {
 		return shoes;
 	}
 
 	/**
 	 * @param shoes the shoes to set
 	 */
-	public void setShoes(int shoes) {
+	public void setShoes(Integer shoes) {
 		this.shoes = shoes;
 	}
 
