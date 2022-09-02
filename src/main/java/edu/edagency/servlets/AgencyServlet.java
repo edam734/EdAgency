@@ -1,6 +1,7 @@
 package edu.edagency.servlets;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -45,24 +46,34 @@ public class AgencyServlet extends HttpServlet {
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		String operation = req.getParameter("form");
-
-		switch (operation) {
-		case "add":
-			addAgent(req, resp);
-			break;
-		case "update":
-			goToUpdateAgent(req, resp);
-			break;
-		case "updateAgentOperation":
-			updateAgent(req, resp);
-			break;
-		case "delete":
-			deleteAgent(req, resp);
-			break;
-		default:
-
+		String email = req.getParameter("email");
+		if (email != null) {
+			resp.setContentType("text/plain");
+			PrintWriter out = resp.getWriter();
+			out.print("O email eh: " + EdAgencyUtils.isEmailValid(email));
+			return;
 		}
+		String operation = req.getParameter("form");
+		if (operation != null) {
+
+			switch (operation) {
+			case "add":
+				addAgent(req, resp);
+				break;
+			case "update":
+				goToUpdateAgent(req, resp);
+				break;
+			case "updateAgentOperation":
+				updateAgent(req, resp);
+				break;
+			case "delete":
+				deleteAgent(req, resp);
+				break;
+			default:
+
+			}
+		}
+		
 	}
 
 	private void listAgents(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -104,6 +115,7 @@ public class AgencyServlet extends HttpServlet {
 
 	private void updateAgent(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		Agent updatedAgent = buildByParameters(req, resp);
+		updatedAgent.setId(Integer.valueOf(req.getParameter("agentId"))); // add also the id
 		new AgentsDAO().updateAgent(updatedAgent);
 		listAgents(req, resp);
 	}
@@ -117,8 +129,8 @@ public class AgencyServlet extends HttpServlet {
 	
 	private Agent buildByParameters(HttpServletRequest req, HttpServletResponse resp) {
 		Agent agent = new Agent();
-		agent.setId(Integer.valueOf(req.getParameter("agentId")));
 		agent.setName(req.getParameter("agentName"));
+		agent.setEmail(req.getParameter("agentEmail"));
 		agent.setGender(Gender.toGender(req.getParameter("agentGender")));
 		agent.setBirthdate(EdAgencyUtils.parseDate(req.getParameter("agentBirthdate")));
 		agent.setEyes(Eye.toEye(req.getParameter("agentEyes")));

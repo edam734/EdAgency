@@ -15,6 +15,9 @@
 	String name = request.getParameter("agentName");
 	out.write(name);
 	out.write("</br>");
+	String email = request.getParameter("agentEmail");
+	out.write(email);
+	out.write("</br>");
 	String gender = request.getParameter("agentGender");
 	out.write(gender);
 	out.write("</br>");
@@ -41,6 +44,7 @@
 <form action="${pageContext.request.contextPath}/home" method="post" >
 	<input type="hidden" name="agentId" value="${param.agentId}" />
 	<input type="hidden" name="agentName" value="${param.agentName}" />
+	<input type="hidden" name="agentEmail" value="${param.agentEmail}" />
 	<input type="hidden" name="agentGender" value="${param.agentGender}" />
 	<input type="hidden" name="agentBirthdate" value="${param.agentBirthdate}" />
 	<input type="hidden" name="agentEyes" value="${param.agentEyes}" />

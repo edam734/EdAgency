@@ -6,12 +6,31 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Update Agent</title>
+<script type="text/javascript" src="js/jquery-3.6.1.min.js" ></script>
+<script type="text/javascript" >
+
+	$(document).ready(function() {
+		$('#email').blur(function() {
+			var email = $('#email').val();
+			$.ajax({
+				type : 'POST',
+				data : {
+					email : email
+				},
+				url : 'home',
+				success : function(result) {
+					$('#result').html(result);
+				}
+			});
+		});
+	});
+</script>
 </head>
 <body>
-
 	<form action="${pageContext.request.contextPath}/home" method="post">
-		Username: <input type="text" name="agentName" value="${param.agentName}" /></br>
+		Username: <input type="text" name="agentName" value="${param.agentName}" /><br>
+		Email: <input type="email" id="email" name="agentEmail" /><span id="result"></span><br>
 		Gender: <select name="agentGender">
 			<option>${param.agentGender}</option>
 			<c:forEach items="${genders}" var="gender">
@@ -22,10 +41,10 @@
 				</c:if>
 			</c:forEach>
 		</select>
-		</br>
-		Birth Date: <input type="date" name="agentBirthdate" value="${param.agentBirthdate}" ></br>
-		Eyes: <input type="text" name="agentEyes" value="${param.agentEyes}" /></br>
-		Height: <input type="text" name="agentHeight" value="${param.agentHeight}" /></br>
+		<br>
+		Birth Date: <input type="date" name="agentBirthdate" value="${param.agentBirthdate}" ><br>
+		Eyes: <input type="text" name="agentEyes" value="${param.agentEyes}" /><br>
+		Height: <input type="text" name="agentHeight" value="${param.agentHeight}" /><br>
 		Shirt: <select name="agentShirt">
 			<option>${param.agentShirt}</option>
 			<c:forEach items="${shirts}" var="shirt">
@@ -36,9 +55,9 @@
 				</c:if>
 			</c:forEach>
 		</select>
-		</br>
-		Shoes: <input type="text" name="agentShoes" value="${param.agentShoes}" /></br>
-		Instagram: <input type="text" name="agentInstagram" value="${param.agentInstagram}" /></br>
+		<br>
+		Shoes: <input type="text" name="agentShoes" value="${param.agentShoes}" /><br>
+		Instagram: <input type="text" name="agentInstagram" value="${param.agentInstagram}" /><br>
 		<input type="hidden" name="agentId" value="${param.agentId}" />
 		<input type="hidden" name="form" value="updateAgentOperation" />
 		<input type="submit" value="update" />

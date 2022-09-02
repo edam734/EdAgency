@@ -15,6 +15,7 @@
 			<tr>
 				<th><b>id</b></th>
 				<th><b>Name</b></th>
+				<th><b>Email</b></th>
 				<th><b>Gender</b></th>
 				<th><b>Birth Date</b></th>
 				<th><b>Eyes</b></th>
@@ -26,6 +27,7 @@
 					<c:param name="page" value="goProfile"></c:param>
 					<c:param name="agentId" value="${agents.id}"></c:param>
 					<c:param name="agentName" value="${agents.name}"></c:param>
+					<c:param name="agentEmail" value="${agents.email}"></c:param>
 					<c:param name="agentGender" value="${agents.gender.toString()}"></c:param>
 					<c:param name="agentBirthdate" value="${agents.birthdate}"></c:param>
 					<c:param name="agentEyes" value="${agents.eyes}"></c:param>
@@ -37,6 +39,7 @@
 				<tr>
 					<td>${agents.id}</td>
 					<td><a href="${profile}">${agents.name}</a></td>
+					<td>${agents.email}</td>
 					<td>${agents.gender.toString()}</td>
 					<td><fmt:formatDate type="date" value="${agents.birthdate}" /></td>
 					<td>${agents.eyes.toString()}</td>
