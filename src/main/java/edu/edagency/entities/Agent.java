@@ -9,37 +9,63 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import com.sun.istack.NotNull;
+
 @Entity
 public class Agent {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
+
+	@NotNull
 	private String name;
+
+	@NotNull
 	private String email;
+
+	@NotNull
 	private Date birthdate;
+
 	@Enumerated(EnumType.STRING)
 	private Gender gender;
+
 	@Enumerated(EnumType.STRING)
-	private Eye eyes;
+	private EyeColor eyes;
+
 	private float height;
+
 	@Enumerated(EnumType.STRING)
 	private ShirtSize shirt;
+
 	private int shoes;
+
 	private String instagram;
 
+	/**
+	 * @return the id
+	 */
 	public int getId() {
 		return id;
 	}
 
+	/**
+	 * @param id the id to set
+	 */
 	public void setId(int id) {
 		this.id = id;
 	}
 
+	/**
+	 * @return the name
+	 */
 	public String getName() {
 		return name;
 	}
 
+	/**
+	 * @param name the name to set
+	 */
 	public void setName(String name) {
 		this.name = name;
 	}
@@ -145,14 +171,14 @@ public class Agent {
 	/**
 	 * @return the eyes
 	 */
-	public Eye getEyes() {
+	public EyeColor getEyes() {
 		return eyes;
 	}
 
 	/**
 	 * @param eyes the eyes to set
 	 */
-	public void setEyes(Eye eyes) {
+	public void setEyes(EyeColor eyes) {
 		this.eyes = eyes;
 	}
 

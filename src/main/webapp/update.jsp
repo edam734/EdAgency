@@ -18,7 +18,7 @@
 				data : {
 					email : email
 				},
-				url : 'home',
+				url : 'ajax',
 				success : function(result) {
 					$('#result').html(result);
 				}
@@ -29,9 +29,10 @@
 </head>
 <body>
 	<form action="${pageContext.request.contextPath}/home" method="post">
-		Username: <input type="text" name="agentName" value="${param.agentName}" /><br>
-		Email: <input type="email" id="email" name="agentEmail" /><span id="result"></span><br>
-		Gender: <select name="agentGender">
+		Username: <input type="text" name="agentName" value="${param.agentName}" required /><br>
+		Email: <input type="email" id="email" name="agentEmail" value="${param.agentEmail}" required /><span id="result"></span><br>
+		Birth Date: <input type="date" name="agentBirthdate" value="${param.agentBirthdate}" required ><br>
+		Gender: <select name="agentGender" required >
 			<option>${param.agentGender}</option>
 			<c:forEach items="${genders}" var="gender">
 				<c:if test="${gender != param.agentGender}" >
@@ -42,7 +43,6 @@
 			</c:forEach>
 		</select>
 		<br>
-		Birth Date: <input type="date" name="agentBirthdate" value="${param.agentBirthdate}" ><br>
 		Eyes: <input type="text" name="agentEyes" value="${param.agentEyes}" /><br>
 		Height: <input type="text" name="agentHeight" value="${param.agentHeight}" /><br>
 		Shirt: <select name="agentShirt">

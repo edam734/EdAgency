@@ -1,7 +1,6 @@
 package edu.edagency.servlets;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -12,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import edu.edagency.dao.AgentsDAO;
 import edu.edagency.entities.Agent;
-import edu.edagency.entities.Eye;
+import edu.edagency.entities.EyeColor;
 import edu.edagency.entities.Gender;
 import edu.edagency.entities.ShirtSize;
 import edu.edagency.utils.EdAgencyUtils;
@@ -46,13 +45,6 @@ public class AgencyServlet extends HttpServlet {
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		String email = req.getParameter("email");
-		if (email != null) {
-			resp.setContentType("text/plain");
-			PrintWriter out = resp.getWriter();
-			out.print("O email eh: " + EdAgencyUtils.isEmailValid(email));
-			return;
-		}
 		String operation = req.getParameter("form");
 		if (operation != null) {
 
@@ -89,7 +81,7 @@ public class AgencyServlet extends HttpServlet {
 	private void goAdd(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		List<String> genders = Gender.getList();
 		req.setAttribute("genders", genders);
-		List<String> eyes = Eye.getEyes();
+		List<String> eyes = EyeColor.getEyes();
 		req.setAttribute("eyes", eyes);
 		List<String> shirts = ShirtSize.getShirts();
 		req.setAttribute("shirts", shirts);
@@ -97,7 +89,7 @@ public class AgencyServlet extends HttpServlet {
 	}
 
 	private void addAgent(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		Agent newAgent = buildByParameters(req, resp);
+		Agent newAgent = buildAgentFromParameters(req, resp);
 		new AgentsDAO().addAgent(newAgent);
 		listAgents(req, resp);
 	}
@@ -106,7 +98,7 @@ public class AgencyServlet extends HttpServlet {
 			throws ServletException, IOException {
 		List<String> genders = Gender.getList();
 		req.setAttribute("genders", genders); // M, F
-		List<String> eyes = Eye.getEyes();
+		List<String> eyes = EyeColor.getEyes();
 		req.setAttribute("eyes", eyes);
 		List<String> shirts = ShirtSize.getShirts();
 		req.setAttribute("shirts", shirts);
@@ -114,8 +106,8 @@ public class AgencyServlet extends HttpServlet {
 	}
 
 	private void updateAgent(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		Agent updatedAgent = buildByParameters(req, resp);
-		updatedAgent.setId(Integer.valueOf(req.getParameter("agentId"))); // add also the id
+		Agent updatedAgent = buildAgentFromParameters(req, resp);
+		updatedAgent.setId(Integer.valueOf(req.getParameter("agentId"))); // set also the id
 		new AgentsDAO().updateAgent(updatedAgent);
 		listAgents(req, resp);
 	}
@@ -127,13 +119,13 @@ public class AgencyServlet extends HttpServlet {
 		listAgents(req, resp);
 	}
 	
-	private Agent buildByParameters(HttpServletRequest req, HttpServletResponse resp) {
+	private Agent buildAgentFromParameters(HttpServletRequest req, HttpServletResponse resp) {
 		Agent agent = new Agent();
 		agent.setName(req.getParameter("agentName"));
 		agent.setEmail(req.getParameter("agentEmail"));
 		agent.setGender(Gender.toGender(req.getParameter("agentGender")));
 		agent.setBirthdate(EdAgencyUtils.parseDate(req.getParameter("agentBirthdate")));
-		agent.setEyes(Eye.toEye(req.getParameter("agentEyes")));
+		agent.setEyes(EyeColor.toEye(req.getParameter("agentEyes")));
 		agent.setHeight(Float.valueOf(req.getParameter("agentHeight")));
 		agent.setShirt(ShirtSize.toShirtSize(req.getParameter("agentShirt")));
 		agent.setShoes(Integer.valueOf(req.getParameter("agentShoes")));
