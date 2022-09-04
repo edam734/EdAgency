@@ -5,9 +5,13 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Profile</title>
+<!-- <title>Profile</title> -->
 </head>
 <body>
+	<c:import url="/include/header.jsp">
+		<c:param name="title" value="Profile" />
+	</c:import>
+	<br>
 <%
 	String id = request.getParameter("agentId");
 	out.write(id);

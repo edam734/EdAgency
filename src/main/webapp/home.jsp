@@ -6,9 +6,13 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>EdAgency Home</title>
+<!-- <title>EdAgency Home</title> -->
 </head>
 <body>
+	<c:import url="/include/header.jsp">
+		<c:param name="title" value="Homepage" />
+	</c:import>
+	<br>
 
 	<table>
 		<thead>
@@ -51,5 +55,27 @@
 		<input type="hidden" name="page" value="goToAdd" />
 		<input type="submit" value="Add Agent" />
 	</form>
+	<br>
+	<br>
+	<b>Users:</b>
+	<br>
+	<table>
+		<thead>
+			<tr>
+				<th><b>id</b></th>
+				<th><b>Email</b></th>
+				<th><b>Password</b></th>
+			</tr>
+		</thead>
+		<tbody>
+			<c:forEach items="${listUsers}" var="users">
+				<tr>
+					<td>${users.id}</td>
+					<td><a href="${profile}">${users.email}</a></td>
+					<td>${users.password}</td>
+				</tr>
+			</c:forEach>
+		</tbody>
+	</table>
 </body>
 </html>

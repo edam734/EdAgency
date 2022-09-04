@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Add Agent</title>
+<!-- <title>Add Agent</title> -->
 <script type="text/javascript" src="js/jquery-3.6.1.min.js" ></script>
 <script type="text/javascript" >
 
@@ -27,6 +27,10 @@
 </script>
 </head>
 <body>
+	<c:import url="/include/header.jsp">
+		<c:param name="title" value="Add Agent" />
+	</c:import>
+	<br>
 	<form action="${pageContext.request.contextPath}/home" method="post">
 <!-- 		Id: <input type="text" name="agentId" /><br> -->
 		Name: <input type="text" name="agentName" required /><br>

@@ -10,10 +10,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import edu.edagency.dao.AgentsDAO;
+import edu.edagency.dao.UsersDAO;
 import edu.edagency.entities.Agent;
 import edu.edagency.entities.EyeColor;
 import edu.edagency.entities.Gender;
 import edu.edagency.entities.ShirtSize;
+import edu.edagency.entities.User;
 import edu.edagency.utils.EdAgencyUtils;
 
 @WebServlet("/home")
@@ -61,6 +63,9 @@ public class AgencyServlet extends HttpServlet {
 			case "delete":
 				deleteAgent(req, resp);
 				break;
+			case "registerAdmin":
+				registerAdmin(req, resp);
+				break;
 			default:
 
 			}
@@ -68,9 +73,21 @@ public class AgencyServlet extends HttpServlet {
 		
 	}
 
+	private void registerAdmin(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		String email = req.getParameter("userEmail");
+		String password = req.getParameter("userPass");
+		User admin = new User();
+		admin.setEmail(email);
+		admin.setPassword(password);
+		new UsersDAO().register(admin);
+		listAgents(req, resp);
+	}
+
 	private void listAgents(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		List<Agent> agents = new AgentsDAO().getAgents();
 		req.setAttribute("listAgents", agents);
+		List<User> users = new UsersDAO().getUsers();
+		req.setAttribute("listUsers", users);
 		req.getRequestDispatcher("/home.jsp").forward(req, resp);
 	}
 
@@ -132,5 +149,7 @@ public class AgencyServlet extends HttpServlet {
 		agent.setInstagram(req.getParameter("agentInstagram"));
 		return agent;
 	}
-
+	
 }
+
+

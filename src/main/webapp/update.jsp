@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Update Agent</title>
+<!-- <title>Update Agent</title> -->
 <script type="text/javascript" src="js/jquery-3.6.1.min.js" ></script>
 <script type="text/javascript" >
 
@@ -28,6 +28,10 @@
 </script>
 </head>
 <body>
+	<c:import url="/include/header.jsp">
+		<c:param name="title" value="Update Agent" />
+	</c:import>
+	<br>
 	<form action="${pageContext.request.contextPath}/home" method="post">
 		Username: <input type="text" name="agentName" value="${param.agentName}" required /><br>
 		Email: <input type="email" id="email" name="agentEmail" value="${param.agentEmail}" required /><span id="result"></span><br>
