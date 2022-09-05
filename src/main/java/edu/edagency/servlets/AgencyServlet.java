@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import edu.edagency.dao.AgentsDAO;
 import edu.edagency.dao.UsersDAO;
@@ -18,7 +19,7 @@ import edu.edagency.entities.ShirtSize;
 import edu.edagency.entities.User;
 import edu.edagency.utils.EdAgencyUtils;
 
-@WebServlet("/home")
+@WebServlet("/agency")
 public class AgencyServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 5472671999562754379L;
@@ -33,16 +34,26 @@ public class AgencyServlet extends HttpServlet {
 			case "list":
 				listAgents(req, resp);
 				break;
-			case "goProfile":
+			case "profileAgent":
 				goProfile(req, resp);
 				break;
-			case "goToAdd":
+			case "updateAgent":
+				goToUpdateAgent(req, resp);
+				break;
+			case "addAgent":
 				goAdd(req, resp);
+				break;
+			case "signin":
+				goToSignIn(req, resp);
 				break;
 			default:
 
 			}
 		}
+	}
+
+	private void goToSignIn(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		req.getRequestDispatcher("/signin.jsp").forward(req, resp);		
 	}
 
 	@Override
@@ -55,9 +66,6 @@ public class AgencyServlet extends HttpServlet {
 				addAgent(req, resp);
 				break;
 			case "update":
-				goToUpdateAgent(req, resp);
-				break;
-			case "updateAgentOperation":
 				updateAgent(req, resp);
 				break;
 			case "delete":
@@ -70,7 +78,7 @@ public class AgencyServlet extends HttpServlet {
 
 			}
 		}
-		
+
 	}
 
 	private void registerAdmin(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -79,7 +87,11 @@ public class AgencyServlet extends HttpServlet {
 		User admin = new User();
 		admin.setEmail(email);
 		admin.setPassword(password);
-		new UsersDAO().register(admin);
+		if (new UsersDAO().register(admin)) {
+			HttpSession session = req.getSession(true);
+			session.setMaxInactiveInterval(300); // 300 sec
+			session.setAttribute("loggedInUser", admin);
+		}
 		listAgents(req, resp);
 	}
 
@@ -135,7 +147,7 @@ public class AgencyServlet extends HttpServlet {
 		dao.deleteAgent(id);
 		listAgents(req, resp);
 	}
-	
+
 	private Agent buildAgentFromParameters(HttpServletRequest req, HttpServletResponse resp) {
 		Agent agent = new Agent();
 		agent.setName(req.getParameter("agentName"));
@@ -149,7 +161,5 @@ public class AgencyServlet extends HttpServlet {
 		agent.setInstagram(req.getParameter("agentInstagram"));
 		return agent;
 	}
-	
+
 }
-
-

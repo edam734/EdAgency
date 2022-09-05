@@ -31,7 +31,7 @@
 		<c:param name="title" value="Add Agent" />
 	</c:import>
 	<br>
-	<form action="${pageContext.request.contextPath}/home" method="post">
+	<form action="${pageContext.request.contextPath}/agency" method="post">
 <!-- 		Id: <input type="text" name="agentId" /><br> -->
 		Name: <input type="text" name="agentName" required /><br>
 		Email: <input type="email" id="email" name="agentEmail" required /><span id="result"></span><br>

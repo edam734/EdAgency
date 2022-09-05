@@ -45,7 +45,8 @@
 	out.write("</br>");
 %>
 
-<form action="${pageContext.request.contextPath}/home" method="post" >
+<form action="${pageContext.request.contextPath}/agency" method="get" >
+	<input type="hidden" name="page" value="updateAgent" />
 	<input type="hidden" name="agentId" value="${param.agentId}" />
 	<input type="hidden" name="agentName" value="${param.agentName}" />
 	<input type="hidden" name="agentEmail" value="${param.agentEmail}" />
@@ -56,8 +57,11 @@
 	<input type="hidden" name="agentShirt" value="${param.agentShirt}" />
 	<input type="hidden" name="agentShoes" value="${param.agentShoes}" />
 	<input type="hidden" name="agentInstagram" value="${param.agentInstagram}" />
-	<input type="submit" name="form" value="update" />
+	<input type="submit" value="Update Agent" />
+</form>
+<form action="${pageContext.request.contextPath}/agency" method="post">
 	<input type="submit" name="form" value="delete" />
 </form>
+
 </body>
 </html>

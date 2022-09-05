@@ -27,8 +27,8 @@
 		</thead>
 		<tbody>
 			<c:forEach items="${listAgents}" var="agents">
-				<c:url var="profile" value="home">
-					<c:param name="page" value="goProfile"></c:param>
+				<c:url var="profile" value="agency">
+					<c:param name="page" value="profileAgent"></c:param>
 					<c:param name="agentId" value="${agents.id}"></c:param>
 					<c:param name="agentName" value="${agents.name}"></c:param>
 					<c:param name="agentEmail" value="${agents.email}"></c:param>
@@ -51,8 +51,8 @@
 			</c:forEach>
 		</tbody>
 	</table>
-	<form action="${pageContext.request.contextPath}/home" action="get">
-		<input type="hidden" name="page" value="goToAdd" />
+	<form action="${pageContext.request.contextPath}/agency" action="get">
+		<input type="hidden" name="page" value="addAgent" />
 		<input type="submit" value="Add Agent" />
 	</form>
 	<br>

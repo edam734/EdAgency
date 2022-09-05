@@ -7,7 +7,7 @@
 <title>Sign In</title>
 </head>
 <body>
-<form action="${pageContext.request.contextPath}/home" method="post">
+<form action="${pageContext.request.contextPath}/agency" method="post">
 	<label for="email">Email: </label>
 	<input type="email" id="email" name="userEmail" /><br>
 	<label for="pass">Password: </label>

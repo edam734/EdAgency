@@ -32,7 +32,7 @@
 		<c:param name="title" value="Update Agent" />
 	</c:import>
 	<br>
-	<form action="${pageContext.request.contextPath}/home" method="post">
+	<form action="${pageContext.request.contextPath}/agency" method="post">
 		Username: <input type="text" name="agentName" value="${param.agentName}" required /><br>
 		Email: <input type="email" id="email" name="agentEmail" value="${param.agentEmail}" required /><span id="result"></span><br>
 		Birth Date: <input type="date" name="agentBirthdate" value="${param.agentBirthdate}" required ><br>
@@ -63,8 +63,8 @@
 		Shoes: <input type="text" name="agentShoes" value="${param.agentShoes}" /><br>
 		Instagram: <input type="text" name="agentInstagram" value="${param.agentInstagram}" /><br>
 		<input type="hidden" name="agentId" value="${param.agentId}" />
-		<input type="hidden" name="form" value="updateAgentOperation" />
-		<input type="submit" value="update" />
+		<input type="hidden" name="form" value="update" />
+		<input type="submit" value="Update" />
 	</form>
 </body>
 </html>
