@@ -46,7 +46,7 @@
 %>
 
 <form action="${pageContext.request.contextPath}/agency" method="get" >
-	<input type="hidden" name="page" value="updateAgent" />
+	<input type="hidden" name="page" value="updateAgent" /> 
 	<input type="hidden" name="agentId" value="${param.agentId}" />
 	<input type="hidden" name="agentName" value="${param.agentName}" />
 	<input type="hidden" name="agentEmail" value="${param.agentEmail}" />

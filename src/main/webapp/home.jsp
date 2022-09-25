@@ -13,6 +13,8 @@
 		<c:param name="title" value="Homepage" />
 	</c:import>
 	<br>
+	<img alt="User info" src="${user.picture}">
+	<br> Email: ${user.email}
 
 	<table>
 		<thead>
@@ -52,8 +54,8 @@
 		</tbody>
 	</table>
 	<form action="${pageContext.request.contextPath}/agency" action="get">
-		<input type="hidden" name="page" value="addAgent" />
-		<input type="submit" value="Add Agent" />
+		<input type="hidden" name="page" value="addAgent" /> <input
+			type="submit" value="Add Agent" />
 	</form>
 	<br>
 	<br>

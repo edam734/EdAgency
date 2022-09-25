@@ -1,6 +1,7 @@
 package edu.edagency.servlets;
 
 import java.io.IOException;
+import java.security.Principal;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -25,7 +26,7 @@ public class AgencyServlet extends HttpServlet {
 	private static final long serialVersionUID = 5472671999562754379L;
 
 	@Override
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {	
 		String page = req.getParameter("page");
 		if (page == null || page.isEmpty()) {
 			listAgents(req, resp);
@@ -52,10 +53,6 @@ public class AgencyServlet extends HttpServlet {
 		}
 	}
 
-	private void goToSignIn(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		req.getRequestDispatcher("/signin.jsp").forward(req, resp);		
-	}
-
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String operation = req.getParameter("form");
@@ -79,20 +76,6 @@ public class AgencyServlet extends HttpServlet {
 			}
 		}
 
-	}
-
-	private void registerAdmin(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		String email = req.getParameter("userEmail");
-		String password = req.getParameter("userPass");
-		User admin = new User();
-		admin.setEmail(email);
-		admin.setPassword(password);
-		if (new UsersDAO().register(admin)) {
-			HttpSession session = req.getSession(true);
-			session.setMaxInactiveInterval(300); // 300 sec
-			session.setAttribute("loggedInUser", admin);
-		}
-		listAgents(req, resp);
 	}
 
 	private void listAgents(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -162,4 +145,21 @@ public class AgencyServlet extends HttpServlet {
 		return agent;
 	}
 
+	private void goToSignIn(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		req.getRequestDispatcher("/signin.jsp").forward(req, resp);		
+	}
+	
+	private void registerAdmin(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		String email = req.getParameter("userEmail");
+		String password = req.getParameter("userPass");
+		User admin = new User();
+		admin.setEmail(email);
+		admin.setPassword(password);
+		if (new UsersDAO().register(admin)) {
+			HttpSession session = req.getSession(true);
+			session.setMaxInactiveInterval(300); // 300 sec
+			session.setAttribute("loggedInUser", admin);
+		}
+		listAgents(req, resp);
+	}
 }
